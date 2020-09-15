@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         Person student = new Person("Fabio", "Lanzo");
-        Person teacher = new Person("Lorena", "Vera");
+        Person teacher = new Person("Pablo", "Rojas");
         Person director = new Person("Pedro", "Perez");
         Person secretary = new Person("Pablo", "Rojas");
 
