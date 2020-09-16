@@ -25,11 +25,11 @@ public class Main {
         System.out.println("secretary.hashCode():" + secretary.hashCode());
 
         // Mostrando metodo equals:
-        System.out.println(student.equals(teacher)
-                || student.equals(director)
-                || student.equals(secretary));
-        System.out.println(teacher.equals(director)
-                || teacher.equals(secretary));
+        System.out.println(student.equals(teacher));
+        System.out.println(student.equals(director));
+        System.out.println(student.equals(secretary));
+        System.out.println(teacher.equals(director));
+        System.out.println(teacher.equals(secretary));
         System.out.println(director.equals(secretary));
 
     }
