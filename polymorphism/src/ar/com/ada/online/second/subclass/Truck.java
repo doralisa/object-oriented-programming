@@ -1,6 +1,6 @@
-package subclass;
+package ar.com.ada.online.second.subclass;
 
-import superclass.Vehicle;
+import ar.com.ada.online.second.superclass.Vehicle;
 
 import java.util.Objects;
 

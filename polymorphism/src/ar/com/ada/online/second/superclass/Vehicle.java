@@ -1,4 +1,4 @@
-package superclass;
+package ar.com.ada.online.second.superclass;
 
 import java.util.Objects;
 

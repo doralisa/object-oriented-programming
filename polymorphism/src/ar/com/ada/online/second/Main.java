@@ -1,12 +1,10 @@
 package ar.com.ada.online.second;
 
-import subclass.ElectricalVehicle;
-import subclass.SportsVehicle;
-import subclass.Truck;
-import superclass.Vehicle;
+import ar.com.ada.online.second.subclass.ElectricalVehicle;
+import ar.com.ada.online.second.subclass.SportsVehicle;
+import ar.com.ada.online.second.subclass.Truck;
+import ar.com.ada.online.second.superclass.Vehicle;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
