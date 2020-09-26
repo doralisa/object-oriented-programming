@@ -62,7 +62,7 @@ public class Rectangle extends Figure {
     @Override
     public String toString() {
         return String.format(
-                "Figure { Area= %5.2f, Base= %5.2f, Altura= %5.2f }",
+                "Rectangle { Area= %5.2f, Base= %5.2f, Altura= %5.2f }",
                 this.area, this.base, this.height);
     }
 }
