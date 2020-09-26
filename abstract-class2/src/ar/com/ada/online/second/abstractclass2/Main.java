@@ -2,8 +2,8 @@ package ar.com.ada.online.second.abstractclass2;
 
 import subclass.Clothes;
 import subclass.Food;
-import subclass.Tools;
-import subclass.Toys;
+import subclass.Tool;
+import subclass.Toy;
 import superclass.Product;
 
 import java.util.ArrayList;
@@ -12,6 +12,8 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+
+        System.out.println("Tienda: TE SACAMOS UN OJO");
 
         Scanner keyboard = new Scanner(System.in);
 
@@ -39,7 +41,7 @@ public class Main {
 
             System.out.println("5. Para finalizar");
 
-            System.out.print("Elija una opción: \n" );
+            System.out.print("Elija una opción: " );
 
             option = keyboard.nextInt();
 
@@ -49,16 +51,17 @@ public class Main {
                     products.add(food);
                     break;
                 case 2:
-                    Toys toys = createToys(keyboard);
-                    products.add(toys);
+                    Toy toy = createToys(keyboard);
+                    products.add(toy);
                     break;
                 case 3:
                     Clothes clothes = createClothes(keyboard);
                     products.add(clothes);
                     break;
                 case 4:
-                    Tools tools = createTools(keyboard);
-                    products.add(tools);
+                    Tool tool = createTools(keyboard);
+                    products.add(tool);
+                    break;
                 case 5:
                     calculateTotalPrice(products, keyboard);
                     break;
@@ -74,55 +77,46 @@ public class Main {
 
     public static Food createFood(Scanner keyboard) {
         Food food = new Food();
-        System.out.print("Ingrese el codigo del alimento: ");
-        double codeFood = keyboard.nextDouble();
+        System.out.print("Seleccione el codigo del alimento: ");
+        System.out.println("[1] [2] [3]");
+        int codeFood = keyboard.nextInt();
         food.setCodeFood(codeFood);
-        System.out.print("Ingrese el precio del alimento: ");
-        double priceFood = keyboard.nextDouble();
+        double priceFood = food.listPrice();
         food.setUnitPrice(priceFood);
-        System.out.print("Ingrese la cantidad: ");
-        int quantityFood = keyboard.nextInt();
-        food.setQuantity(quantityFood);
         return food;
     }
 
-    public static Toys createToys(Scanner keyboard) {
-        Toys toys = new Toys();
-        System.out.print("Ingrese el codigo del juguete: ");
-        double codeToys = keyboard.nextDouble();
-        toys.setCodeToys(codeToys);
-        System.out.print("Ingrese el precio del juguete: ");
-        double priceToys = keyboard.nextDouble();
-        toys.setUnitPrice(priceToys);
-        return toys;
+    public static Toy createToys(Scanner keyboard) {
+        Toy toy = new Toy();
+        System.out.print("Seleccione el codigo del juguete: ");
+        System.out.println("[4] [5] [6]");
+        int codeToy = keyboard.nextInt();
+        toy.setCodeToy(codeToy);
+        double priceToy = toy.listPrice();
+        toy.setUnitPrice(priceToy);
+        return toy;
     }
 
     public static Clothes createClothes(Scanner keyboard) {
         Clothes clothes = new Clothes();
-        System.out.print("Ingrese el codigo de la preda de ropa: ");
-        double codeClothes = keyboard.nextDouble();
+        System.out.print("Seleccione el codigo de la preda de ropa: ");
+        System.out.println("[7] [8] [9]");
+        int codeClothes = keyboard.nextInt();
         clothes.setCodeClothes(codeClothes);
-        System.out.print("Ingrese el precio de la ropa: ");
-        double priceClothes = keyboard.nextDouble();
+        double priceClothes = clothes.listPrice();
         clothes.setUnitPrice(priceClothes);
-        System.out.print("Ingrese la cantidad: ");
-        int quantityClothes = keyboard.nextInt();
-        clothes.setQuantity(quantityClothes);
         return clothes;
     }
 
-    public static Tools createTools(Scanner keyboard) {
-        Tools tools = new Tools();
+    public static Tool createTools(Scanner keyboard) {
+        Tool tool = new Tool();
         System.out.print("Ingrese el codigo de la herramienta: ");
-        double codeTools = keyboard.nextDouble();
-        tools.setCodeTools(codeTools);
-        System.out.print("Ingrese el precio de la heramienta: ");
-        double priceTools = keyboard.nextDouble();
-        tools.setUnitPrice(priceTools);
-        System.out.print("Ingrese la cantidad: ");
-        int quantityTools = keyboard.nextInt();
-        tools.setQuantity(quantityTools);
-        return tools;
+        System.out.println("[10] [11] [12]");
+        int codeTools = keyboard.nextInt();
+        tool.setCodeTool(codeTools);
+        double priceTools = tool.listPrice();
+        tool.setUnitPrice(priceTools);
+        return tool;
     }
 
     public static void calculateTotalPrice(ArrayList<Product> products, Scanner keyboard) {
@@ -132,58 +126,87 @@ public class Main {
             switch (product.getClass().getSimpleName()) {
                 case "Food":
                     Food food = (Food) product;
-                    System.out.println("Producto: Alimentos");
+                    System.out.println("\n Producto: Alimento \n");
                     System.out.println("¿Es martes o jueves? s/n: ");
                     String answer1 = keyboard.next();
+                    System.out.println("Ingrese la cantidad: ");
+                    int quantityFood = keyboard.nextInt();
+                    food.setQuantity(quantityFood);
                     if (answer1.equals("s")) {
-                        food.productDiscount();
-                        Double totalPrice = food.getPriceDisc() * food.getQuantity();
-                        food.setTotalPriceDisc(totalPrice);
+                        double discount = food.getUnitPrice() * 0.10;
+                        double discountPrice = food.getUnitPrice() - discount;
+                        food.setPriceDisc(discountPrice);
+                        double totalPriceDisc = discountPrice * food.getQuantity();
+                        food.setTotalPriceDisc(totalPriceDisc);
+                        double totalUnitPrice = food.getUnitPrice() * food.getQuantity();
+                        food.setTotalUnitPrice(totalUnitPrice);
                     } else {
-                        Double totalPrice = food.getUnitPrice() * food.getQuantity();
-                        food.setTotalPrice(totalPrice);
+                        double totalUnitPrice = food.getUnitPrice() * food.getQuantity();
+                        food.setTotalUnitPrice(totalUnitPrice);
+                        food.setTotalPriceDisc(food.getTotalUnitPrice());
                     }
                     break;
-                case "Toys":
-                    Toys toys = (Toys) product;
-                    System.out.println("Producto: Juguetes");
-                    System.out.print("Ingrese la cantidad de juguetes: ");
-                    int quantityToys = keyboard.nextInt();
-                    toys.setQuantity(quantityToys);
-                    if (quantityToys > 3 || toys.getPriceDisc() > 3000.00) {
-                        toys.productDiscount();
-                        Double totalPrice = toys.getPriceDisc()* toys.getQuantity();
-                        toys.setTotalPriceDisc(totalPrice);
+                case "Toy":
+                    Toy toy = (Toy) product;
+                    System.out.println("\n Producto: Juguete \n");
+                    System.out.println("Ingrese la cantidad: ");
+                    int quantityToy = keyboard.nextInt();
+                    toy.setQuantity(quantityToy);
+                    double totalUnitPriceToy = toy.getUnitPrice() * toy.getQuantity();
+                    toy.setTotalUnitPrice(totalUnitPriceToy);
+                    if (quantityToy > 3 || toy.getTotalUnitPrice() > 3000.00) {
+                        double discount = toy.getUnitPrice() * 0.25;
+                        double discountPrice = toy.getUnitPrice() - discount;
+                        toy.setPriceDisc(discountPrice);
+                        double totalPriceDisc = discountPrice * toy.getQuantity();
+                        toy.setTotalPriceDisc(totalPriceDisc);
                     } else {
-                        Double totalPrice = toys.getUnitPrice() * toys.getQuantity();
-                        toys.setTotalPrice(totalPrice);
+                        toy.getTotalUnitPrice();
+                        toy.setTotalPriceDisc(toy.getTotalUnitPrice());
                     }
                     break;
                 case "Clothes":
                     Clothes clothes = (Clothes) product;
-                    System.out.println("Producto: Ropa");
+                    System.out.println("\n Producto: Ropa \n");
                     System.out.println("¿Es una prenda para mujer o niño? s/n: ");
                     String answer2 = keyboard.next();
+                    System.out.println("Ingrese la cantidad: ");
+                    int quantityClothes = keyboard.nextInt();
+                    clothes.setQuantity(quantityClothes);
                     if (answer2.equals("s")) {
-                        clothes.productDiscount();
-                        Double totalPrice = clothes.getPriceDisc() * clothes.getQuantity();
-                        clothes.setTotalPriceDisc(totalPrice);
+                        double discount = clothes.getUnitPrice() * 0.15;
+                        double discountPrice = clothes.getUnitPrice() - discount;
+                        clothes.setPriceDisc(discountPrice);
+                        double totalPriceDisc = discountPrice * clothes.getQuantity();
+                        clothes.setTotalPriceDisc(totalPriceDisc);
+                        double totalUnitPrice = clothes.getUnitPrice() * clothes.getQuantity();
+                        clothes.setTotalUnitPrice(totalUnitPrice);
                     } else {
-                        Double totalPrice = clothes.getUnitPrice() * clothes.getQuantity();
-                        clothes.setTotalPrice(totalPrice);
+                        double totalUnitPrice = clothes.getUnitPrice() * clothes.getQuantity();
+                        clothes.setTotalUnitPrice(totalUnitPrice);
+                        clothes.setTotalPriceDisc(clothes.getTotalUnitPrice());
                     }
                     break;
-                case "Tools":
-                    Tools tools = (Tools) product;
-                    System.out.println("Producto: Herramientas");
+                case "Tool":
+                    Tool tool = (Tool) product;
+                    System.out.println("\n Producto: Herramienta \n");
                     System.out.println("¿Paga con TDC? s/n: ");
                     String paymentMethod = keyboard.next();
+                    System.out.println("Ingrese la cantidad: ");
+                    int quantityTools = keyboard.nextInt();
+                    tool.setQuantity(quantityTools);
                     if (paymentMethod.equals("s")) {
-                        Double totalPrice = tools.getPriceDisc() * tools.getQuantity();
-                        tools.setTotalPriceDisc(totalPrice);
+                        double discount = tool.getUnitPrice() * 0.5;
+                        double discountPrice = tool.getUnitPrice() - discount;
+                        tool.setPriceDisc(discountPrice);
+                        double totalPriceDisc = discountPrice * tool.getQuantity();
+                        tool.setTotalPriceDisc(totalPriceDisc);
+                        double totalUnitPrice = tool.getUnitPrice() * tool.getQuantity();
+                        tool.setTotalUnitPrice(totalUnitPrice);
                     } else {
-                        Double totalPrice = tools.getUnitPrice() * tools.getQuantity();
-                        tools.setTotalPrice(totalPrice);
+                        double totalUnitPrice = tool.getUnitPrice() * tool.getQuantity();
+                        tool.setTotalUnitPrice(totalUnitPrice);
+                        tool.setTotalPriceDisc(tool.getTotalUnitPrice());
                     }
                     break;
             }
@@ -199,41 +222,51 @@ public class Main {
         for (Product product : products) {
 
             quantityProducts += product.getQuantity();
-            finalPriceDisc += product.getPriceDisc();
-            finalPriceNoDisc += product.getUnitPrice();
+            finalPriceDisc += product.getTotalPriceDisc();
+            finalPriceNoDisc += product.getTotalUnitPrice();
 
             switch (product.getClass().getSimpleName()) {
                 case "Food":
                     Food food = (Food) product;
-                    System.out.println("Codigo: " + food.getCodeFood());
-                    System.out.println("Precio: " + food.getUnitPrice());
+                    System.out.println("\n Codigo: " + food.getCodeFood());
+                    System.out.println("Precio real: " + food.getUnitPrice());
                     System.out.println("Precio con descuento: " + food.getPriceDisc());
-                    System.out.println("Cantidad: " + food.getQuantity() + "\n");
+                    System.out.println("Cantidad: " + food.getQuantity());
+                    System.out.println("Total precio sin descuento: " + food.getTotalUnitPrice());
+                    System.out.println("Total precio con descuento: " + food.getTotalPriceDisc() + "\n");
                     break;
-                case "Toys":
-                    Toys toys = (Toys) product;
-                    System.out.println("Codigo: " + toys.getCodeToys());
-                    System.out.println("Precio: " + toys.getPriceDisc());
-                    System.out.println("Precio con descuento: " + toys.getPriceDisc());
-                    System.out.println("Cantidad: " + toys.getQuantity() + "\n");
+                case "Toy":
+                    Toy toy = (Toy) product;
+                    System.out.println("Codigo: " + toy.getCodeToy());
+                    System.out.println("Precio real: " + toy.getUnitPrice());
+                    System.out.println("Precio con descuento: " + toy.getPriceDisc());
+                    System.out.println("Cantidad: " + toy.getQuantity());
+                    System.out.println("Total precio sin descuento: " + toy.getTotalUnitPrice());
+                    System.out.println("Total precio con descuento: " + toy.getTotalPriceDisc() + "\n");
                     break;
                 case "Clothes":
                     Clothes clothes = (Clothes) product;
                     System.out.println("Codigo: " + clothes.getCodeClothes());
-                    System.out.println("Precio: " + clothes.getPriceDisc());
+                    System.out.println("Precio real: " + clothes.getUnitPrice());
                     System.out.println("Precio con descuento: " + clothes.getPriceDisc());
-                    System.out.println("Cantidad: " + clothes.getQuantity() + "\n");
-                case "Tools":
-                    Tools tools = (Tools) product;
-                    System.out.println("Codigo: " + tools.getCodeTools());
-                    System.out.println("Precio: " + tools.getPriceDisc());
-                    System.out.println("Precio con descuento: " + tools.getPriceDisc());
-                    System.out.println("Cantidad: " + tools.getQuantity() + "\n");
+                    System.out.println("Cantidad: " + clothes.getQuantity());
+                    System.out.println("Total precio sin descuento: " + clothes.getTotalUnitPrice());
+                    System.out.println("Total precio con descuento: " + clothes.getTotalPriceDisc() + "\n");
+                    break;
+                case "Tool":
+                    Tool tool = (Tool) product;
+                    System.out.println(" Codigo: " + tool.getCodeTool());
+                    System.out.println("Precio real: " + tool.getUnitPrice());
+                    System.out.println("Precio con descuento: " + tool.getPriceDisc());
+                    System.out.println("Cantidad: " + tool.getQuantity());
+                    System.out.println("Total precio sin descuento: " + tool.getTotalUnitPrice());
+                    System.out.println("Total precio con descuento: " + tool.getTotalPriceDisc() + "\n");
                     break;
             }
         }
-        System.out.println("Precio total: %5.2f" + finalPriceNoDisc);
-        System.out.println("Precio total con descuento: %5.2f" + finalPriceDisc);
-        System.out.println("Cantidad de Productos: %d" + quantityProducts);
+        System.out.println("-----RECIBO FINAL-----");
+        System.out.println("Precio real total: " + finalPriceNoDisc);
+        System.out.println("Precio total con descuento: " + finalPriceDisc);
+        System.out.println("Cantidad de Productos: " + quantityProducts);
     }
 }
