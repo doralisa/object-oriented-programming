@@ -249,6 +249,7 @@ public class Main {
                     System.out.println("Codigo: " + clothes.getCodeClothes());
                     System.out.println("Precio real: " + clothes.getUnitPrice());
                     System.out.println("Precio con descuento: " + clothes.getPriceDisc());
+<<<<<<< HEAD
                     System.out.println("Cantidad: " + clothes.getQuantity());
                     System.out.println("Total precio sin descuento: " + clothes.getTotalUnitPrice());
                     System.out.println("Total precio con descuento: " + clothes.getTotalPriceDisc() + "\n");
@@ -261,6 +262,16 @@ public class Main {
                     System.out.println("Cantidad: " + tool.getQuantity());
                     System.out.println("Total precio sin descuento: " + tool.getTotalUnitPrice());
                     System.out.println("Total precio con descuento: " + tool.getTotalPriceDisc() + "\n");
+=======
+                    System.out.println("Cantidad: " + clothes.getQuantity() + "\n");
+                    break;
+                case "Tools":
+                    Tools tools = (Tools) product;
+                    System.out.println("Codigo: " + tools.getCodeTools());
+                    System.out.println("Precio: " + tools.getPriceDisc());
+                    System.out.println("Precio con descuento: " + tools.getPriceDisc());
+                    System.out.println("Cantidad: " + tools.getQuantity() + "\n");
+>>>>>>> feature/abstract-class
                     break;
             }
         }
