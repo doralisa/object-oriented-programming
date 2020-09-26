@@ -223,6 +223,7 @@ public class Main {
                     System.out.println("Precio: " + clothes.getPriceDisc());
                     System.out.println("Precio con descuento: " + clothes.getPriceDisc());
                     System.out.println("Cantidad: " + clothes.getQuantity() + "\n");
+                    break;
                 case "Tools":
                     Tools tools = (Tools) product;
                     System.out.println("Codigo: " + tools.getCodeTools());
