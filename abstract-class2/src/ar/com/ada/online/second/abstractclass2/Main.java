@@ -27,6 +27,8 @@ public class Main {
 
         int option;
 
+        System.out.println("----MENU DE PRODUCTOS-----");
+
         do {
 
             System.out.println("Seleccione el producto:");
@@ -123,6 +125,8 @@ public class Main {
 
         for (Product product : products) {
 
+            System.out.println("----CONDICIONES DE DESCUENTO-----");
+
             switch (product.getClass().getSimpleName()) {
                 case "Food":
                     Food food = (Food) product;
@@ -143,6 +147,7 @@ public class Main {
                     } else {
                         double totalUnitPrice = food.getUnitPrice() * food.getQuantity();
                         food.setTotalUnitPrice(totalUnitPrice);
+                        food.setPriceDisc(food.getUnitPrice());
                         food.setTotalPriceDisc(food.getTotalUnitPrice());
                     }
                     break;
@@ -162,6 +167,7 @@ public class Main {
                         toy.setTotalPriceDisc(totalPriceDisc);
                     } else {
                         toy.getTotalUnitPrice();
+                        toy.setPriceDisc(toy.getUnitPrice());
                         toy.setTotalPriceDisc(toy.getTotalUnitPrice());
                     }
                     break;
@@ -184,6 +190,7 @@ public class Main {
                     } else {
                         double totalUnitPrice = clothes.getUnitPrice() * clothes.getQuantity();
                         clothes.setTotalUnitPrice(totalUnitPrice);
+                        clothes.setPriceDisc(clothes.getUnitPrice());
                         clothes.setTotalPriceDisc(clothes.getTotalUnitPrice());
                     }
                     break;
@@ -206,6 +213,7 @@ public class Main {
                     } else {
                         double totalUnitPrice = tool.getUnitPrice() * tool.getQuantity();
                         tool.setTotalUnitPrice(totalUnitPrice);
+                        tool.setPriceDisc(tool.getUnitPrice());
                         tool.setTotalPriceDisc(tool.getTotalUnitPrice());
                     }
                     break;
@@ -220,6 +228,8 @@ public class Main {
         double finalPriceNoDisc = 0.0;
 
         for (Product product : products) {
+
+            System.out.println("----DETALLE DE COMPRA POR PRODUCTO----");
 
             quantityProducts += product.getQuantity();
             finalPriceDisc += product.getTotalPriceDisc();
@@ -265,7 +275,7 @@ public class Main {
                     break;
             }
         }
-        System.out.println("-----RECIBO FINAL-----");
+        System.out.println("-----RECIBO FINAL DE COMPRA-----");
         System.out.println("Precio real total: " + finalPriceNoDisc);
         System.out.println("Precio total con descuento: " + finalPriceDisc);
         System.out.println("Cantidad de Productos: " + quantityProducts);
