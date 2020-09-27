@@ -27,7 +27,7 @@ public class Main {
 
         int option;
 
-        System.out.println("----MENU DE PRODUCTOS-----");
+        System.out.println("----INVENTARIO DE PRODUCTOS-----");
 
         do {
 
