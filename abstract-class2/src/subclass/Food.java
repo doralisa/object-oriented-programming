@@ -1,41 +1,31 @@
 package subclass;
 
+import ar.com.ada.online.second.abstractclass2.ShoppingCart;
 import superclass.Product;
 
 import java.util.Objects;
 
 public class Food extends Product {
 
-    private Integer codeFood;
-
     public Food() {
     }
 
-    public Food(Double unitPrice, Double totalUnitPrice, Double priceDisc, Double totalPriceDisc, Integer quantity, Integer codeFood) {
-        super(unitPrice, totalUnitPrice, priceDisc, totalPriceDisc, quantity);
-        this.codeFood = codeFood;
-    }
-
-    public Integer getCodeFood() {
-        return codeFood;
-    }
-
-    public void setCodeFood(Integer codeFood) {
-        this.codeFood = codeFood;
+    public Food(Double unitPrice, Double priceDisc, Integer code, String productName) {
+        super(unitPrice, priceDisc, code, productName);
     }
 
     @Override
     public Double listPrice() {
         double unitPrice;
-        if (this.codeFood == 1) {
+        if (super.code == 1) {
             unitPrice = 190.0;
             setUnitPrice(unitPrice);
         } else {
-            if (this.codeFood == 2) {
+            if (super.code == 2) {
                 unitPrice = 150.0;
                 setUnitPrice(unitPrice);
             } else {
-                if (this.codeFood == 3) {
+                if (super.code == 3) {
                     unitPrice = 150.0;
                     setUnitPrice(unitPrice);
                 } else {
@@ -44,17 +34,29 @@ public class Food extends Product {
                 return getUnitPrice();
             }
 
-            @Override
+    @Override
+    public void calculateDiscount() {
+        if (ShoppingCart.dayOfWeek.equals("Wednesday") || ShoppingCart.dayOfWeek.equals("Friday")) {
+            double discount = getUnitPrice() * 0.10;
+            double discountPrice = getUnitPrice() - discount;
+            setPriceDisc(discountPrice);
+        } else {
+            double price = 0.0;
+            setPriceDisc(price);
+        }
+    }
+
+    @Override
             public String toString () {
                 return String.format(
-                        "Food { codeFood= %d \n unitPrice= %5.2f \n totalUnitPrice= %5.2f \n " +
-                                "priceDisc= %5.2f \n totalPriceDisc= %5.2f \n quantityFood= %d }",
-                        this.codeFood, super.unitPrice, super.totalUnitPrice, super.priceDisc, super.totalPriceDisc, super.quantity);
+                        "Food { code= %d \n name= %s \n unitPrice= %5.2f \n " +
+                                "priceDisc= %5.2f }",
+                        super.code, super.productName, super.unitPrice, super.priceDisc);
             }
 
             @Override
             public int hashCode () {
-                return Objects.hash(super.hashCode(), codeFood);
+                return Objects.hash(super.hashCode());
             }
 
             @Override
@@ -62,6 +64,6 @@ public class Food extends Product {
                 if (this == obj) return true;
                 if (obj == null || getClass() != obj.getClass()) return false;
                 Food that = (Food) obj;
-                return !super.equals(obj) && codeFood.equals(that.codeFood);
+                return !super.equals(obj);
             }
         }

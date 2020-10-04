@@ -3,40 +3,30 @@ package subclass;
 import superclass.Product;
 
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Clothes extends Product {
-
-    private Integer codeClothes;
 
     public Clothes() {
     }
 
-    public Clothes(Double unitPrice, Double totalUnitPrice, Double priceDisc, Double totalPriceDisc, Integer quantity, Integer codeClothes) {
-        super(unitPrice, totalUnitPrice, priceDisc, totalPriceDisc, quantity);
-        this.codeClothes = codeClothes;
-    }
-
-    public Integer getCodeClothes() {
-        return codeClothes;
-    }
-
-    public void setCodeClothes(Integer codeClothes) {
-        this.codeClothes = codeClothes;
+    public Clothes(Double unitPrice, Double priceDisc, Integer code, String productName) {
+        super(unitPrice, priceDisc, code, productName);
     }
 
     @Override
     public Double listPrice() {
         double unitPrice;
-        if (this.codeClothes == 7) {
+        if (super.code == 7) {
             unitPrice = 2190.0;
             setUnitPrice(unitPrice);
         } else {
-            if (this.codeClothes == 8) {
+            if (super.code == 8) {
                 unitPrice = 2500.0;
                 setUnitPrice(unitPrice);
             } else {
-                if (this.codeClothes == 9) {
-                    unitPrice = 750.0;
+                if (super.code == 9) {
+                    unitPrice = 1250.0;
                     setUnitPrice(unitPrice);
                 } else {
                     System.out.println("No existe el producto");
@@ -47,16 +37,28 @@ public class Clothes extends Product {
     }
 
     @Override
+    public void calculateDiscount() {
+        if (super.code == 7 || super.code == 9) {
+            double discount = getUnitPrice() * 0.15;
+            double discountPrice = getUnitPrice() - discount;
+            setPriceDisc(discountPrice);
+        } else {
+            double price = 0.0;
+            setPriceDisc(price);
+        }
+    }
+
+    @Override
     public String toString() {
         return String.format(
-                "Clothes { codeClothes= %d \n unitPrice= %5.2f \n totalUnitPrice= %5.2f \n " +
-                        "priceDisc= %5.2f \n totalPriceDisc= %5.2f \n quantityClothes= %d }",
-                this.codeClothes, super.unitPrice, super.totalUnitPrice, super.priceDisc, super.totalPriceDisc, super.quantity);
+                "Clothes { code= %d \n name= %s \n unitPrice= %5.2f \n " +
+                        "priceDisc= %5.2f }",
+                super.code, super.productName, super.unitPrice, super.priceDisc);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), codeClothes);
+        return Objects.hash(super.hashCode());
     }
 
     @Override
@@ -64,6 +66,6 @@ public class Clothes extends Product {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Clothes that = (Clothes) obj;
-        return !super.equals(obj) && codeClothes.equals(that.codeClothes);
+        return !super.equals(obj);
     }
 }

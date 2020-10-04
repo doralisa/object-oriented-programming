@@ -3,20 +3,18 @@ package superclass;
 public abstract class Product {
 
     protected Double unitPrice;
-    protected Double totalUnitPrice;
     protected Double priceDisc;
-    protected Double totalPriceDisc;
-    protected Integer quantity;
+    protected Integer code;
+    protected String productName;
 
     public Product() {
     }
 
-    public Product(Double unitPrice, Double totalUnitPrice, Double priceDisc, Double totalPriceDisc, Integer quantity) {
+    public Product(Double unitPrice, Double priceDisc, Integer code, String productName) {
         this.unitPrice = unitPrice;
-        this.totalUnitPrice = totalUnitPrice;
         this.priceDisc = priceDisc;
-        this.totalPriceDisc = totalPriceDisc;
-        this.quantity = quantity;
+        this.code = code;
+        this.productName = productName;
     }
 
     public Double getUnitPrice() {
@@ -25,14 +23,6 @@ public abstract class Product {
 
     public void setUnitPrice(Double unitPrice) {
         this.unitPrice = unitPrice;
-    }
-
-    public Double getTotalUnitPrice() {
-        return totalUnitPrice;
-    }
-
-    public void setTotalUnitPrice(Double totalUnitPrice) {
-        this.totalUnitPrice = totalUnitPrice;
     }
 
     public Double getPriceDisc() {
@@ -44,23 +34,25 @@ public abstract class Product {
         return priceDisc;
     }
 
-    public Double getTotalPriceDisc() {
-        return totalPriceDisc;
+    public Integer getCode() {
+        return code;
     }
 
-    public void setTotalPriceDisc(Double totalPriceDisc) {
-        this.totalPriceDisc = totalPriceDisc;
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public abstract Double listPrice();
+
+    public abstract void calculateDiscount();
 
     @Override
     public int hashCode() {
@@ -72,15 +64,13 @@ public abstract class Product {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Product that = (Product) obj;
-        return unitPrice.equals(that.unitPrice) && totalUnitPrice.equals(that.totalUnitPrice)
-                && priceDisc.equals(that.priceDisc) && totalPriceDisc.equals(that.totalPriceDisc);
+        return unitPrice.equals(that.unitPrice) && priceDisc.equals(that.priceDisc);
     }
 
     @Override
     public String toString() {
-        return String.format("Product {unitPrice= %5.2f \n totalUnitPrice= %5.2f \n " +
-                        "priceDisc= %5.2f \n totalPriceDisc= %5.2f \n quantity= %d}",
-                unitPrice, totalUnitPrice, priceDisc, totalPriceDisc, quantity);
+        return String.format("Product { code= %d \n unitPrice= %5.2f \n " +
+                        "priceDisc= %5.2f }", code, unitPrice, priceDisc);
     }
 }
 
